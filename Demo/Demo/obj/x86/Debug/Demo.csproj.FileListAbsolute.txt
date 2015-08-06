@@ -1,0 +1,6 @@
+C:\Users\ahsu\Desktop\Demo\Demo\Demo\bin\x86\Debug\Demo.exe
+C:\Users\ahsu\Desktop\Demo\Demo\Demo\bin\x86\Debug\Demo.pdb
+C:\Users\ahsu\Desktop\Demo\Demo\Demo\obj\x86\Debug\Demo.csprojResolveAssemblyReference.cache
+C:\Users\ahsu\Desktop\Demo\Demo\Demo\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\ahsu\Desktop\Demo\Demo\Demo\obj\x86\Debug\Demo.exe
+C:\Users\ahsu\Desktop\Demo\Demo\Demo\obj\x86\Debug\Demo.pdb
