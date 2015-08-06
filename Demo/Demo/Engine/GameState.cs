@@ -12,8 +12,7 @@ namespace Demo.Engine
 
         public GameState(string name, int cash)
         {
-            store = new Store(name, cash);
-
+            store = new Store { name = name, cash = cash };
         }
 
         public int getStoreCash() { return store.cash; }

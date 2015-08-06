@@ -7,13 +7,7 @@ namespace Demo.Models
 {
     public class Store
     {
-        public string name;
-        public int cash;
-
-        public Store(string name, int cash)
-        {
-            this.name = name;
-            this.cash = cash;
-        }
+        public string name { get; set; }
+        public int cash { get; set; }
     }
 }

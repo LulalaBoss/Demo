@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using Demo.Engine;
 
 namespace Demo
 {
@@ -21,6 +22,8 @@ namespace Demo
         SpriteFont font;
         Vector2 fontPos;
         Vector2 fontPos2;
+        Vector2 fontPos3;
+        GameState gameState;
 
         public App()
         {
@@ -37,8 +40,8 @@ namespace Demo
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
             base.Initialize();
+            gameState = new GameState("Alberto Taco Shop", 100);
         }
 
         /// <summary>
@@ -52,6 +55,7 @@ namespace Demo
             font = Content.Load<SpriteFont>("Courier New");
             fontPos = new Vector2(graphics.GraphicsDevice.Viewport.Width/20, graphics.GraphicsDevice.Viewport.Height/10);
             fontPos2 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 100);
+            fontPos3 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 150);
             // TODO: use this.Content to load your game content here
         }
 
@@ -86,17 +90,18 @@ namespace Demo
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Snow);
+            GraphicsDevice.Clear(Color.LightBlue);
 
             spriteBatch.Begin();
-            spriteBatch.DrawString(font, "Hello world!!", fontPos, Color.Black);
+            spriteBatch.DrawString(font, "Welcome to " + gameState.getStoreName() + "!", fontPos, Color.Black);
+            spriteBatch.DrawString(font, "Cash: $" + gameState.getStoreCash(), fontPos2, Color.Olive);
             if (gameTime.TotalGameTime.TotalSeconds > 3)
             {
-                spriteBatch.DrawString(font, "This is current time: " + gameTime.TotalGameTime.TotalSeconds.ToString(), fontPos2, Color.Red);
+                spriteBatch.DrawString(font, "This is current time: " + gameTime.TotalGameTime.TotalSeconds.ToString(), fontPos3, Color.Red);
             }
             else
             {
-                spriteBatch.DrawString(font, "Wait for it...", fontPos2, Color.Black);
+                spriteBatch.DrawString(font, "Wait for it...", fontPos3, Color.Black);
             }
             spriteBatch.End();
 
