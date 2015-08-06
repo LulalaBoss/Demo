@@ -20,6 +20,7 @@ namespace Demo
         SpriteBatch spriteBatch;
         SpriteFont font;
         Vector2 fontPos;
+        Vector2 fontPos2;
 
         public App()
         {
@@ -50,7 +51,7 @@ namespace Demo
             spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("Courier New");
             fontPos = new Vector2(graphics.GraphicsDevice.Viewport.Width/20, graphics.GraphicsDevice.Viewport.Height/10);
-            
+            fontPos2 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 100);
             // TODO: use this.Content to load your game content here
         }
 
@@ -85,10 +86,18 @@ namespace Demo
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Snow);
 
             spriteBatch.Begin();
             spriteBatch.DrawString(font, "Hello world!!", fontPos, Color.Black);
+            if (gameTime.TotalGameTime.TotalSeconds > 3)
+            {
+                spriteBatch.DrawString(font, "This is current time: " + gameTime.TotalGameTime.TotalSeconds.ToString(), fontPos2, Color.Red);
+            }
+            else
+            {
+                spriteBatch.DrawString(font, "Wait for it...", fontPos2, Color.Black);
+            }
             spriteBatch.End();
 
             // TODO: Add your drawing code here
