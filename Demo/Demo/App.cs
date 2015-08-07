@@ -25,6 +25,8 @@ namespace Demo
         Vector2 fontPos3;
         GameState gameState;
 
+        bool isFlash;
+
         public App()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -42,6 +44,7 @@ namespace Demo
             // TODO: Add your initialization logic here
             base.Initialize();
             gameState = new GameState("Alberto Taco Shop", 100);
+            isFlash = false;
         }
 
         /// <summary>
@@ -79,6 +82,7 @@ namespace Demo
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
+            gameState.update(gameTime.ElapsedGameTime.Milliseconds, ref isFlash);
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -92,10 +96,12 @@ namespace Demo
         {
             GraphicsDevice.Clear(Color.LightBlue);
 
+            base.Draw(gameTime); 
+
             spriteBatch.Begin();
             spriteBatch.DrawString(font, "Welcome to " + gameState.getStoreName() + "!", fontPos, Color.Black);
             spriteBatch.DrawString(font, "Cash: $" + gameState.getStoreCash(), fontPos2, Color.Olive);
-            if (gameTime.TotalGameTime.TotalSeconds > 3)
+            if (isFlash)
             {
                 spriteBatch.DrawString(font, "This is current time: " + gameTime.TotalGameTime.TotalSeconds.ToString(), fontPos3, Color.Red);
             }
@@ -105,8 +111,7 @@ namespace Demo
             }
             spriteBatch.End();
 
-            // TODO: Add your drawing code here
-            base.Draw(gameTime);           
+            base.Draw(gameTime);       
         }
     }
 }

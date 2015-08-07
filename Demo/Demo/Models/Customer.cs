@@ -11,6 +11,7 @@ namespace Demo.Models
         public string lastName { get; set; }
         public int type { get; set; }
         public int endurance { get; set; }
+        public int waitTime { get; set; }
         public int dineTime { get; set; }
         public int favorite { get; set; }        
     }
