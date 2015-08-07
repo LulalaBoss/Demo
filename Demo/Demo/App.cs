@@ -23,6 +23,10 @@ namespace Demo
         Vector2 fontPos;
         Vector2 fontPos2;
         Vector2 fontPos3;
+        Vector2 fontPos4;
+        Vector2 fontPos5;
+        Vector2 fontPos6;
+        Vector2 fontPos7;
         GameState gameState;
 
         bool isFlash;
@@ -58,7 +62,11 @@ namespace Demo
             font = Content.Load<SpriteFont>("Courier New");
             fontPos = new Vector2(graphics.GraphicsDevice.Viewport.Width/20, graphics.GraphicsDevice.Viewport.Height/10);
             fontPos2 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 100);
-            fontPos3 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 150);
+            fontPos3 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 125);
+            fontPos4 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 150);
+            fontPos5 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 200);
+            fontPos6 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 225);
+            fontPos7 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 275);
             // TODO: use this.Content to load your game content here
         }
 
@@ -101,13 +109,18 @@ namespace Demo
             spriteBatch.Begin();
             spriteBatch.DrawString(font, "Welcome to " + gameState.getStoreName() + "!", fontPos, Color.Black);
             spriteBatch.DrawString(font, "Cash: $" + gameState.getStoreCash(), fontPos2, Color.Olive);
+            spriteBatch.DrawString(font, "Numbers of customer in store: " + gameState.getCustomerCountInStore(), fontPos3, Color.Olive);
+            spriteBatch.DrawString(font, "Numbers of customer in line: " + gameState.getCustomerCountInLine(), fontPos4, Color.Olive);
+            spriteBatch.DrawString(font, "Customer in store: " + gameState.getCustomerInStoreList(), fontPos5, Color.BurlyWood);
+            spriteBatch.DrawString(font, "Customer in line: " + gameState.getCustomerInLineList(), fontPos6, Color.BurlyWood);
+            
             if (isFlash)
             {
-                spriteBatch.DrawString(font, "This is current time: " + gameTime.TotalGameTime.TotalSeconds.ToString(), fontPos3, Color.Red);
+                spriteBatch.DrawString(font, "This is current time: " + gameTime.TotalGameTime.TotalSeconds.ToString(), fontPos7, Color.Red);
             }
             else
             {
-                spriteBatch.DrawString(font, "Wait for it...", fontPos3, Color.Black);
+                spriteBatch.DrawString(font, "Wait for it...", fontPos7, Color.Black);
             }
             spriteBatch.End();
 
