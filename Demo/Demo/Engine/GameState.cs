@@ -9,6 +9,7 @@ namespace Demo.Engine
     public class GameState
     {
         private Store store;
+        private List<Settlement> settlements;
         private NameGenerator generator;
         private int updateTicks;
 
@@ -17,21 +18,21 @@ namespace Demo.Engine
             updateTicks = 0;
             generator = new NameGenerator();
 
-            store = new Store 
-            {
-                name = name, 
-                cash = cash,
-                tableNumber = 4,
-                lineSize = 6,
-                tables = new List<Customer>(),
-                line = new List<Customer>()
-            };
+            store = new Store(name, cash, 6, 4);
+
+            // adding settlements
+            settlements = new List<Settlement>();
+
+            var settlement = new Settlement("Kleshi", 1, 130);
+            settlements.Add(settlement);
         }
 
         public int getStoreCash() { return store.cash; }
         public string getStoreName() { return store.name; }
         public int getCustomerCountInStore() { return store.tables.Count; }
         public int getCustomerCountInLine() { return store.line.Count; }
+        public string getCurrentSettlementName() { return settlements[0].name; }
+       
 
         public string getCustomerInStoreList() 
         {
@@ -58,10 +59,13 @@ namespace Demo.Engine
             if (updateTicks > 3000)
             {
                 var customer = generateCustomer();
-                store.usheringCustomer(customer);
 
-                isFlash = true;
-                updateTicks = 0;
+                if (customer != null)
+                {
+                    store.usheringCustomer(customer);
+                    isFlash = true;
+                    updateTicks = 0;
+                }              
             }
 
             if (isFlash && updateTicks>2000)
@@ -72,8 +76,29 @@ namespace Demo.Engine
 
         public Customer generateCustomer()
         {
-            var customer = new Customer { firstName = generator.getFirstName(), lastName = generator.getLastName() };
+            Customer customer = null;
+
+            if (shouldGenerateCustomer())
+            {
+                customer = new Customer { firstName = generator.getFirstName(), lastName = generator.getLastName() };
+            }
+
             return customer;
+        }
+
+        public bool shouldGenerateCustomer() 
+        {
+            Random random = new Random();
+            var r = random.Next(0, 100);
+
+            if (r > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
     }

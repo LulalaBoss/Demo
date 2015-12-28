@@ -16,6 +16,16 @@ namespace Demo.Models
         public List<Customer> tables { get; set; }
         public List<Customer> line { get; set; }
 
+        public Store(string name, int cash, int lineSize, int tableNumber)
+        {
+            this.name = name;
+            this.cash = cash;
+            this.tableNumber = tableNumber;
+            this.lineSize = lineSize;
+            tables = new List<Customer>(tableNumber);
+            line = new List<Customer>(lineSize);
+        }
+
         public void usheringCustomer(Customer customer) 
         {
             // check if there are available tables. If it does, fill it

@@ -27,6 +27,7 @@ namespace Demo
         Vector2 fontPos5;
         Vector2 fontPos6;
         Vector2 fontPos7;
+        Vector2 fontPos8;
         GameState gameState;
 
         bool isFlash;
@@ -67,6 +68,7 @@ namespace Demo
             fontPos5 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 200);
             fontPos6 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 225);
             fontPos7 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 275);
+            fontPos8 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 350);
             // TODO: use this.Content to load your game content here
         }
 
@@ -108,7 +110,7 @@ namespace Demo
 
             spriteBatch.Begin();
             spriteBatch.DrawString(font, "Welcome to " + gameState.getStoreName() + "!", fontPos, Color.Black);
-            spriteBatch.DrawString(font, "Cash: $" + gameState.getStoreCash(), fontPos2, Color.Olive);
+            spriteBatch.DrawString(font, "Settlement Name: " + gameState.getCurrentSettlementName(), fontPos2, Color.Olive);
             spriteBatch.DrawString(font, "Numbers of customer in store: " + gameState.getCustomerCountInStore(), fontPos3, Color.Olive);
             spriteBatch.DrawString(font, "Numbers of customer in line: " + gameState.getCustomerCountInLine(), fontPos4, Color.Olive);
             spriteBatch.DrawString(font, "Customer in store: " + gameState.getCustomerInStoreList(), fontPos5, Color.BurlyWood);
