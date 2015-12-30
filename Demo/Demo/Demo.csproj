@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="Engine\GameState.cs" />
     <Compile Include="Engine\NameGenerator.cs" />
+    <Compile Include="Models\Map.cs" />
     <Compile Include="Models\Settlement.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Store.cs" />

@@ -35,6 +35,9 @@ namespace Demo
         public App()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.IsFullScreen = false;
+            graphics.PreferredBackBufferHeight = 800;
+            graphics.PreferredBackBufferWidth = 1200;
             Content.RootDirectory = "Content";
         }
 
@@ -92,7 +95,7 @@ namespace Demo
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            gameState.update(gameTime.ElapsedGameTime.Milliseconds, ref isFlash);
+            gameState.Update(gameTime.ElapsedGameTime.Milliseconds, ref isFlash);
             // TODO: Add your update logic here
 
             base.Update(gameTime);
@@ -110,11 +113,37 @@ namespace Demo
 
             spriteBatch.Begin();
             spriteBatch.DrawString(font, "Welcome to " + gameState.getStoreName() + "!", fontPos, Color.Black);
-            spriteBatch.DrawString(font, "Settlement Name: " + gameState.getCurrentSettlementName(), fontPos2, Color.Olive);
+            spriteBatch.DrawString(font, "Settlement Name: " + gameState.GetCurrentSettlementName(), fontPos2, Color.Olive);
             spriteBatch.DrawString(font, "Numbers of customer in store: " + gameState.getCustomerCountInStore(), fontPos3, Color.Olive);
             spriteBatch.DrawString(font, "Numbers of customer in line: " + gameState.getCustomerCountInLine(), fontPos4, Color.Olive);
             spriteBatch.DrawString(font, "Customer in store: " + gameState.getCustomerInStoreList(), fontPos5, Color.BurlyWood);
             spriteBatch.DrawString(font, "Customer in line: " + gameState.getCustomerInLineList(), fontPos6, Color.BurlyWood);
+
+            Texture2D rect = new Texture2D(GraphicsDevice, 1, 1);
+            rect.SetData(new[] {Color.Azure});
+
+            for (int i = 0; i < 8; i++)
+            {
+                for (int j = 0; j < 8; j++)
+                {
+                    if (i % 2 == 0 && j % 2 == 0)
+                    {
+                        spriteBatch.Draw(rect, new Rectangle(50 + j * 50, 300 + i * 50, 50, 50), Color.AntiqueWhite);
+                    }
+                    else if (i % 2 == 0 && j % 2 == 1)
+                    {
+                        spriteBatch.Draw(rect, new Rectangle(50 + j * 50, 300 + i * 50, 50, 50), Color.Brown);
+                    }
+                    else if (i % 2 == 1 && j % 2 == 0)
+                    {
+                        spriteBatch.Draw(rect, new Rectangle(50 + j * 50, 300 + i * 50, 50, 50), Color.Brown);
+                    }
+                    else
+                    {
+                        spriteBatch.Draw(rect, new Rectangle(50 + j * 50, 300 + i * 50, 50, 50), Color.AntiqueWhite);
+                    }
+                }
+            }
             
             if (isFlash)
             {

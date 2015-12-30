@@ -9,7 +9,7 @@ namespace Demo.Engine
     public class GameState
     {
         private Store store;
-        private List<Settlement> settlements;
+        private Map map;
         private NameGenerator generator;
         private int updateTicks;
 
@@ -20,18 +20,16 @@ namespace Demo.Engine
 
             store = new Store(name, cash, 6, 4);
 
-            // adding settlements
-            settlements = new List<Settlement>();
+            // initializing map
+            map = new Map(8, 8);
 
-            var settlement = new Settlement("Kleshi", 1, 130);
-            settlements.Add(settlement);
         }
 
         public int getStoreCash() { return store.cash; }
         public string getStoreName() { return store.name; }
         public int getCustomerCountInStore() { return store.tables.Count; }
         public int getCustomerCountInLine() { return store.line.Count; }
-        public string getCurrentSettlementName() { return settlements[0].name; }
+        public string GetCurrentSettlementName() { return map.settlements[0].name; }
        
 
         public string getCustomerInStoreList() 
@@ -53,7 +51,7 @@ namespace Demo.Engine
             return list; 
         }
 
-        public void update(int elapsedTicks, ref bool isFlash)
+        public void Update(int elapsedTicks, ref bool isFlash)
         {
             updateTicks += elapsedTicks;
             if (updateTicks > 3000)
@@ -80,7 +78,7 @@ namespace Demo.Engine
 
             if (shouldGenerateCustomer())
             {
-                customer = new Customer { firstName = generator.getFirstName(), lastName = generator.getLastName() };
+                customer = new Customer { firstName = generator.GetFirstName(), lastName = generator.GetLastName() };
             }
 
             return customer;

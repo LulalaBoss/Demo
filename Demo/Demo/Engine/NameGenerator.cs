@@ -15,10 +15,10 @@ namespace Demo.Engine
             lastNames = new Dictionary<int, string>();
             firstNames = new Dictionary<int, string>();
 
-            loadDictionaries();
+            LoadDictionaries();
         }
 
-        private void loadDictionaries()
+        private void LoadDictionaries()
         {
             lastNames.Add(0, "LeBlanc");
             lastNames.Add(1, "Watson");
@@ -33,13 +33,13 @@ namespace Demo.Engine
             firstNames.Add(4, "Kevin");
         }
 
-        public string getLastName()         
+        public string GetLastName()         
         {
             Random rand = new Random();
             return lastNames.ElementAt(rand.Next(0, lastNames.Count)).Value;
         }
 
-        public string getFirstName()
+        public string GetFirstName()
         {
             Random rand = new Random();
             return firstNames.ElementAt(rand.Next(0, firstNames.Count)).Value;
