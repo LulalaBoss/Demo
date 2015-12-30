@@ -142,6 +142,11 @@ namespace Demo
                     {
                         spriteBatch.Draw(rect, new Rectangle(50 + j * 50, 300 + i * 50, 50, 50), Color.AntiqueWhite);
                     }
+
+                    if (gameState.map.settlementsRadius[j, i] != 0)
+                    {
+                        spriteBatch.Draw(rect, new Rectangle(55 + j * 50, 305 + i * 50, 40, 40), Color.Red);
+                    }
                 }
             }
             

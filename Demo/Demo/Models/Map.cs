@@ -28,9 +28,9 @@ namespace Demo.Models
         public void LoadSettlements()
         {
             // Add to list of settlements
-            settlements.Add(new Settlement("Pektha", 1, 155, new Tuple<int, int>(4, 6), settlements.Count));
-            settlements.Add(new Settlement("Sathbri", 3, 155, new Tuple<int, int>(2, 5), settlements.Count));
-            settlements.Add(new Settlement("Khirin", 1, 155, new Tuple<int, int>(0, 2), settlements.Count));
+            settlements.Add(new Settlement("Pektha", 1, 155, new Tuple<int, int>(4, 6), settlements.Count+1));
+            settlements.Add(new Settlement("Sathbri", 3, 155, new Tuple<int, int>(2, 5), settlements.Count+1));
+            settlements.Add(new Settlement("Khirin", 1, 155, new Tuple<int, int>(0, 2), settlements.Count+1));
 
             // Add settlementID to settlementsRadius
             for (int i = 0; i < settlements.Count; i++)

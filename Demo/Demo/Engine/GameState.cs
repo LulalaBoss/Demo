@@ -9,7 +9,7 @@ namespace Demo.Engine
     public class GameState
     {
         private Store store;
-        private Map map;
+        public Map map;
         private NameGenerator generator;
         private int updateTicks;
 
