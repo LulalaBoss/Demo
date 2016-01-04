@@ -39,6 +39,8 @@ namespace Demo
             graphics.PreferredBackBufferHeight = 800;
             graphics.PreferredBackBufferWidth = 1200;
             Content.RootDirectory = "Content";
+            // set mouse to be visible
+            this.IsMouseVisible = true;
         }
 
         /// <summary>
@@ -68,10 +70,10 @@ namespace Demo
             fontPos2 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 100);
             fontPos3 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 125);
             fontPos4 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 150);
-            fontPos5 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 200);
-            fontPos6 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 225);
-            fontPos7 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 275);
-            fontPos8 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 350);
+            fontPos5 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 175);
+            fontPos6 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 200);
+            fontPos7 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 225);
+            fontPos8 = new Vector2(graphics.GraphicsDevice.Viewport.Width / 20, graphics.GraphicsDevice.Viewport.Height / 10 + 300);
             // TODO: use this.Content to load your game content here
         }
 
@@ -107,6 +109,10 @@ namespace Demo
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            // get current mouse position
+            var mouseState = Mouse.GetState();
+            var mousePosition = new Point(mouseState.X, mouseState.Y);
+
             GraphicsDevice.Clear(Color.LightBlue);
 
             base.Draw(gameTime); 
@@ -114,53 +120,63 @@ namespace Demo
             spriteBatch.Begin();
             spriteBatch.DrawString(font, "Welcome to " + gameState.getStoreName() + "!", fontPos, Color.Black);
             spriteBatch.DrawString(font, "Settlement Name: " + gameState.GetCurrentSettlementName(), fontPos2, Color.Olive);
-            spriteBatch.DrawString(font, "Numbers of customer in store: " + gameState.getCustomerCountInStore(), fontPos3, Color.Olive);
-            spriteBatch.DrawString(font, "Numbers of customer in line: " + gameState.getCustomerCountInLine(), fontPos4, Color.Olive);
-            spriteBatch.DrawString(font, "Customer in store: " + gameState.getCustomerInStoreList(), fontPos5, Color.BurlyWood);
-            spriteBatch.DrawString(font, "Customer in line: " + gameState.getCustomerInLineList(), fontPos6, Color.BurlyWood);
 
             Texture2D rect = new Texture2D(GraphicsDevice, 1, 1);
             rect.SetData(new[] {Color.Azure});
+            
 
             for (int i = 0; i < 8; i++)
             {
                 for (int j = 0; j < 8; j++)
                 {
+                    var tile = new Rectangle(50 + j * 50, 300 + i * 50, 50, 50);
+                    var settlement = new Rectangle(55 + j * 50, 305 + i * 50, 40, 40);
+
                     if (i % 2 == 0 && j % 2 == 0)
                     {
-                        spriteBatch.Draw(rect, new Rectangle(50 + j * 50, 300 + i * 50, 50, 50), Color.AntiqueWhite);
+                        spriteBatch.Draw(rect, tile, Color.AntiqueWhite);
                     }
                     else if (i % 2 == 0 && j % 2 == 1)
                     {
-                        spriteBatch.Draw(rect, new Rectangle(50 + j * 50, 300 + i * 50, 50, 50), Color.Brown);
+                        spriteBatch.Draw(rect, tile, Color.Brown);
                     }
                     else if (i % 2 == 1 && j % 2 == 0)
                     {
-                        spriteBatch.Draw(rect, new Rectangle(50 + j * 50, 300 + i * 50, 50, 50), Color.Brown);
+                        spriteBatch.Draw(rect, tile, Color.Brown);
                     }
                     else
                     {
-                        spriteBatch.Draw(rect, new Rectangle(50 + j * 50, 300 + i * 50, 50, 50), Color.AntiqueWhite);
+                        spriteBatch.Draw(rect, tile, Color.AntiqueWhite);
                     }
 
                     if (gameState.map.settlementsRadius[j, i] != 0)
                     {
                         if (gameState.map.settlementsRadius[j, i] < 0)
-                            spriteBatch.Draw(rect, new Rectangle(55 + j * 50, 305 + i * 50, 40, 40), Color.Red);
+                        {
+                            var id = -gameState.map.settlementsRadius[j, i];
+                            spriteBatch.Draw(rect, settlement, Color.Red);
+                            if (settlement.Contains(mousePosition))
+                            {
+                                spriteBatch.DrawString(font, "Settlement ID: " + gameState.map.settlements[id-1].settlementID, fontPos3, Color.DarkGreen);
+                                spriteBatch.DrawString(font, "Name: " + gameState.map.settlements[id - 1].name, fontPos4, Color.DarkGreen);
+                                spriteBatch.DrawString(font, "Population: " + gameState.map.settlements[id - 1].population, fontPos5, Color.DarkGreen);
+                                spriteBatch.DrawString(font, "Life Quality " + gameState.map.settlements[id - 1].lifeQuality, fontPos6, Color.DarkGreen);
+                            }
+                        }
                         else
-                            spriteBatch.Draw(rect, new Rectangle(55 + j * 50, 305 + i * 50, 40, 40), Color.MistyRose);
+                            spriteBatch.Draw(rect, settlement, Color.MistyRose);
 
                     }
                 }
-            }
-            
+            }                       
+
             if (isFlash)
             {
-                spriteBatch.DrawString(font, "This is current time: " + gameTime.TotalGameTime.TotalSeconds.ToString(), fontPos7, Color.Red);
+                //spriteBatch.DrawString(font, "This is current time: " + gameTime.TotalGameTime.TotalSeconds.ToString(), fontPos7, Color.Red);
             }
             else
             {
-                spriteBatch.DrawString(font, "Wait for it...", fontPos7, Color.Black);
+                //spriteBatch.DrawString(font, "Wait for it...", fontPos7, Color.Black);
             }
             spriteBatch.End();
 
