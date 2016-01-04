@@ -37,11 +37,11 @@ namespace Demo.Models
             {                
                 for (int j = 0; j < settlements[i].locations.Count; j++)
                 {
-                    // center
+                    // center; set center to be negative value
                     var x = settlements[i].locations[j].Item1;
                     var y = settlements[i].locations[j].Item2;
 
-                    settlementsRadius[x, y] = settlements[i].settlementID;
+                    settlementsRadius[x, y] = -settlements[i].settlementID;
 
                     // inflence sphere; only if level >= 3 
                     if (settlements[i].level >= 3)
